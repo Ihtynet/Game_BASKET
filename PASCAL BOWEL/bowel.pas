@@ -7,10 +7,10 @@ uses
   ABCObjects, GraphABC, Sounds;
 
 var
-  speed: integer;
+  speedbwl: integer;
   speedapl: integer;
   vkleft, vkright: boolean;
-  player, block, good, bad: ObjectABC;
+  obj_bowel, obj_apple, obj_good, obj_bad: ObjectABC;
 
   kolgood, kolbad:integer;
 
@@ -36,42 +36,42 @@ end;
 
 //////////////////////////////////// 
 // Процедура Работа по объекту корзина
-procedure TimerProc;
+procedure MovingBowel;
 begin
   if vkleft = true then
   begin
-    player.MoveOn(-speed, 0); 
+    obj_bowel.MoveOn(-speedbwl, 0); 
   end;
   
   if vkright = true then 
   begin
-    player.MoveOn(speed, 0); 
+    obj_bowel.MoveOn(speedbwl, 0); 
   end;
 end;
 
 //////////////////////////////////// 
 // Процедура Работа по объекту яблоко
-procedure TimerApple;
+procedure MovingApple;
 begin
   
-  if block.Center.Y >= Window.Height-50 Then
+  if obj_apple.Center.Y >= Window.Height-50 Then
     begin
       kolbad := kolbad + 1;
-      bad.Text:=inttostr(kolbad);
-      block.Destroy;
+      obj_bad.Text:=inttostr(kolbad);
+      obj_apple.Destroy;
       speedapl := Random(15)+5;
-      block   := new PictureABC(Random(1000)+100, 10, 'data\gm_apple.png');
+      obj_apple   := new PictureABC(Random(1000)+100, 10, 'data\gm_apple.png');
      end
   else
-    block.MoveOn(0, speedapl);
+    obj_apple.MoveOn(0, speedapl);
 
-  if player.Intersect(block) Then
+  if obj_bowel.Intersect(obj_apple) Then
   begin
       kolgood := kolgood + 1;
-      good.Text:=inttostr(kolgood);
-      block.Destroy;
+      obj_good.Text:=inttostr(kolgood);
+      obj_apple.Destroy;
       speedapl := Random(15)+5;
-      block   := new PictureABC(Random(1000)+100, 10, 'data\gm_apple.png');
+      obj_apple   := new PictureABC(Random(1000)+100, 10, 'data\gm_apple.png');
       PlaySound('D:\pascalProjects\МойВариант BOWEL\data\ding.wav');
   end;
   
@@ -83,22 +83,22 @@ begin
   
   Window.Load('data\gm_bg.png');
   Window.CenterOnScreen;
-  good    := new PictureABC(1, 1, 'data\good.png');
-  bad     := new PictureABC(1150, 1, 'data\bad.png');
+  obj_good    := new PictureABC(1, 1, 'data\good.png');
+  obj_bad     := new PictureABC(1150, 1, 'data\bad.png');
  
   
-  player  := new PictureABC(10, 790, 'data\gm_bowel.png');
+  obj_bowel  := new PictureABC(10, 790, 'data\gm_bowel.png');
   
-  block   := new PictureABC(Random(1000)+100, 10, 'data\gm_apple.png');
-  speed := 10;
+  obj_apple   := new PictureABC(Random(1000)+100, 10, 'data\gm_apple.png');
+  speedbwl := 10;
   speedapl := Random(15)+5;
   Window.Title := 'Game BOWEL';
   while true do
   begin
-    TimerProc;
-    TimerApple;
-    OnKeyDown := KeyDown;
-    OnKeyUp := KeyUp;  
+    MovingBowel;
+    MovingApple;
+    OnKeyDown 	:= KeyDown;
+    OnKeyUp 	:= KeyUp;  
     sleep(5);
   end;
 end.

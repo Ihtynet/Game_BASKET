@@ -11,11 +11,11 @@ from random import random, randrange
 # функции
 
 def go_left():
-    player.direction = "left"
+    obj_bowel.direction = "left"
 
 
 def go_right():
-    player.direction = "right"
+    obj_bowel.direction = "right"
 
 def is_connect(xa,xp,ya,yp):
     if ya-43 <= yp+40 and xa>=xp-75 and xa<=xp+75:
@@ -23,78 +23,77 @@ def is_connect(xa,xp,ya,yp):
     else:
         return False
 
+
 ################################
 
-wn=turtle.Screen()
-wn.title("Game BOWEL")
-wn.bgcolor("pink")
-wn.setup(width=1250,height=950)
-wn.bgpic('data\gm_bg.png')
-wn.tracer(0)
+Window=turtle.Screen()
+Window.title("Game BOWEL")
+Window.bgcolor("pink")
+Window.setup(width=1250,height=950)
+Window.bgpic('data\gm_bg.png')
+Window.tracer(0)
 
 #добавляем яблоко
 imageapl = r"data\gm_apple.gif"
-wn.addshape(imageapl)
-apple = turtle.Turtle()
-apple.shape(imageapl)
-apple.speed(10)
+Window.addshape(imageapl)
+obj_apple = turtle.Turtle()
+obj_apple.shape(imageapl)
+obj_apple.speed(10)
 
-apple.penup()
-apple.goto(0,400)
-apple.direction="stop"
+obj_apple.penup()
+obj_apple.goto(0,400)
+obj_apple.direction="stop"
 
 
 #добавляем корзину
 imagebowel = r"data\gm_bowel.gif"
-wn.addshape(imagebowel)
-player = turtle.Turtle()
-player.shape(imagebowel)
-player.speed(0)
+Window.addshape(imagebowel)
+obj_bowel = turtle.Turtle()
+obj_bowel.shape(imagebowel)
+obj_bowel.speed(0)
 
-player.penup()
-player.goto(0,-360)
-player.direction="stop"
-#player.write("bowel", font=("Arial", 16, "normal"))
+obj_bowel.penup()
+obj_bowel.goto(0,-360)
+obj_bowel.direction="stop"
+#obj_bowel.write("bowel", font=("Arial", 16, "normal"))
 
 #************************************
 #Обработка нажатий клавиш
-wn.listen()
-wn.onkeypress(go_left,"Left")
-wn.onkeypress(go_right,"Right")
+Window.listen()
+Window.onkeypress(go_left,"Left")
+Window.onkeypress(go_right,"Right")
 
-speedapple = 0.1
+speedbwl = 30
+speedapl = 0.1
+
+
 
 while True:
-    wn.update()
-    if player.direction == "left":
-        x = player.xcor()
-        x -= 30
-        player.direction = "stop"
-        player.setx(x)
+    Window.update()
+    if obj_bowel.direction == "left":
+        x = obj_bowel.xcor()
+        x -= speedbwl
+        obj_bowel.direction = "stop"
+        obj_bowel.setx(x)
+    if obj_bowel.direction == "right":
+        x = obj_bowel.xcor()
+        x += speedbwl
+        obj_bowel.direction = "stop"
+        obj_bowel.setx(x)
 
-    if player.direction == "right":
-        x = player.xcor()
-        x += 30
-        player.direction = "stop"
-        player.setx(x)
-
-
-    ya = apple.ycor()
+    ya = obj_apple.ycor()
     if ya <=-400:
         ya = 400
         xa = randrange(-600, 600, 1)
-        apple.setx(xa)
-        speedapple = randrange(1,10 , 1)/10
-
-    if is_connect(apple.xcor(),player.xcor(),apple.ycor(),player.ycor()):
+        obj_apple.setx(xa)
+        speedapl = randrange(1,10 , 1)/10
+    if is_connect(obj_apple.xcor(),obj_bowel.xcor(),obj_apple.ycor(),obj_bowel.ycor()):
         ya = 400
         xa = randrange(-600, 600, 1)
-        apple.setx(xa)
-        speedapple = randrange(1,10 , 1)/10
+        obj_apple.setx(xa)
+        speedapl = randrange(1,10 , 1)/10
+    ya -= speedapl
+    obj_apple.sety(ya)
 
 
-    ya -= speedapple
-    apple.sety(ya)
-
-
-wn.mainloop()
+Window.mainloop()
