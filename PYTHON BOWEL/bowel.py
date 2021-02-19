@@ -1,3 +1,8 @@
+#****************************************
+#   ИГРА BOWEL на PYTHON
+#   Автор: Коршунов Владимир Михайлович
+#   Создана для тренировки ребят по программированию
+#****************************************
 import turtle
 from random import random, randrange
 
@@ -21,7 +26,7 @@ def is_connect(xa,xp,ya,yp):
 ################################
 
 wn=turtle.Screen()
-wn.title("falling skies")
+wn.title("Game BOWEL")
 wn.bgcolor("pink")
 wn.setup(width=1250,height=950)
 wn.bgpic('data\gm_bg.png')
@@ -51,7 +56,8 @@ player.goto(0,-360)
 player.direction="stop"
 #player.write("bowel", font=("Arial", 16, "normal"))
 
-#keyboard
+#************************************
+#Обработка нажатий клавиш
 wn.listen()
 wn.onkeypress(go_left,"Left")
 wn.onkeypress(go_right,"Right")

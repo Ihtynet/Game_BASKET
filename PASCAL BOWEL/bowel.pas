@@ -1,4 +1,9 @@
-﻿uses
+﻿//****************************************
+//   ИГРА BOWEL на ABS PASCAL
+//   Автор: Коршунов Владимир Михайлович
+//   Создана для тренировки ребят по программированию
+//****************************************
+uses
   ABCObjects, GraphABC, Sounds;
 
 var
@@ -8,19 +13,19 @@ var
   player, block, good, bad: ObjectABC;
 
   kolgood, kolbad:integer;
-  
-// Клавиша нажата
+
+////////////////////////////////////  
+// Процедура Клавиша нажата
 procedure KeyDown(Key: integer);
 begin
   case Key of
     VK_Left:  vkleft := true;
     VK_right: vkright := true; 
-
   end;
-  
 end;
 
-// Клавиша ОТжата
+//////////////////////////////////// 
+// Процедура Клавиша ОТжата
 procedure KeyUp(Key: integer);
 begin
   case Key of
@@ -29,7 +34,8 @@ begin
   end;
 end;
 
-
+//////////////////////////////////// 
+// Процедура Работа по объекту корзина
 procedure TimerProc;
 begin
   if vkleft = true then
@@ -43,6 +49,8 @@ begin
   end;
 end;
 
+//////////////////////////////////// 
+// Процедура Работа по объекту яблоко
 procedure TimerApple;
 begin
   
@@ -84,7 +92,7 @@ begin
   block   := new PictureABC(Random(1000)+100, 10, 'data\gm_apple.png');
   speed := 10;
   speedapl := Random(15)+5;
-  Window.Title := 'Передвигайте объекты';
+  Window.Title := 'Game BOWEL';
   while true do
   begin
     TimerProc;
