@@ -1,5 +1,5 @@
 ﻿//****************************************
-//   ИГРА BOWEL на ABS PASCAL
+//   ИГРА Basket на ABS PASCAL
 //   Автор: Коршунов Владимир Михайлович
 //   Создана для тренировки ребят по программированию
 //****************************************
@@ -10,7 +10,7 @@ var
   speedbwl: integer;
   speedapl: integer;
   vkleft, vkright: boolean;
-  obj_bowel, obj_apple, obj_good, obj_bad: ObjectABC;
+  obj_basket, obj_apple, obj_good, obj_bad: ObjectABC;
 
   kolgood, kolbad:integer;
 
@@ -40,12 +40,12 @@ procedure MovingBowel;
 begin
   if vkleft = true then
   begin
-    obj_bowel.MoveOn(-speedbwl, 0); 
+    obj_basket.MoveOn(-speedbwl, 0); 
   end;
   
   if vkright = true then 
   begin
-    obj_bowel.MoveOn(speedbwl, 0); 
+    obj_basket.MoveOn(speedbwl, 0); 
   end;
 end;
 
@@ -65,7 +65,7 @@ begin
   else
     obj_apple.MoveOn(0, speedapl);
 
-  if obj_bowel.Intersect(obj_apple) Then
+  if obj_basket.Intersect(obj_apple) Then
   begin
       kolgood := kolgood + 1;
       obj_good.Text:=inttostr(kolgood);
@@ -87,7 +87,7 @@ begin
   obj_bad     := new PictureABC(1150, 1, 'data\bad.png');
  
   
-  obj_bowel  := new PictureABC(10, 790, 'data\gm_bowel.png');
+  obj_basket  := new PictureABC(10, 790, 'data\gm_bowel.png');
   
   obj_apple   := new PictureABC(Random(1000)+100, 10, 'data\gm_apple.png');
   speedbwl := 10;
