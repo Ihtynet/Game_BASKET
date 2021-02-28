@@ -63,7 +63,7 @@ Window.listen()
 Window.onkeypress(go_left,"Left")
 Window.onkeypress(go_right,"Right")
 
-speedbwl = 10
+speedbwl = 30
 speedapl = 0.1
 
 
